@@ -13,6 +13,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    font-family: Helvetica, Arial, sans-serif;
   }
 
   svg {
