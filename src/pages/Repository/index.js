@@ -5,7 +5,7 @@ import api from '../../services/api';
 
 import { FaSpinner } from 'react-icons/fa';
 import { MdArrowBack } from 'react-icons/md';
-import { Loading, Owner } from './styles';
+import { Loading, Owner, IssueList } from './styles';
 import Container from '../../components/Container/index';
 
 export default class Repository extends Component {
@@ -45,7 +45,7 @@ export default class Repository extends Component {
   }
 
   render() {
-    const { repository, loading } = this.state;
+    const { repository, issues, loading } = this.state;
 
     if (loading) {
       return (
@@ -71,6 +71,27 @@ export default class Repository extends Component {
           </h1>
           <p>{repository.description}</p>
         </Owner>
+
+        <IssueList>
+          {issues.map((issue) => (
+            <li key={String(issue.id)}>
+              <a href={issue.user.html_url}>
+                <img src={issue.user.avatar_url} alt={issue.user.login} />
+              </a>
+              <div>
+                <strong>
+                  <a href={issue.html_url}>{issue.title}</a>
+                  {issue.labels.map((label) => (
+                    <a href={label.url}>
+                      <span key={String(label.id)}>{label.name}</span>
+                    </a>
+                  ))}
+                </strong>
+                <p>{issue.user.login}</p>
+              </div>
+            </li>
+          ))}
+        </IssueList>
       </Container>
     );
   }
