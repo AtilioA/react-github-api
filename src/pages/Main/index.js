@@ -13,6 +13,7 @@ export default class Main extends Component {
     newRepo: '',
     repositories: [],
     loading: false,
+    repositoryNotFound: false,
   };
 
   componentDidMount() {
@@ -34,27 +35,35 @@ export default class Main extends Component {
   handleInputChange = (event) => {
     this.setState({ newRepo: event.target.value });
   };
-
   handleSubmit = async (event) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    const { newRepo, repositories } = this.state;
+      const { newRepo, repositories } = this.state;
 
-    this.setState({ loading: true });
+      this.setState({ loading: true });
 
-    const response = await api.get(`/repos/${newRepo}`);
+      const response = await api.get(`/repos/${newRepo}`);
 
-    const data = { name: response.data.full_name };
+      const data = { name: response.data.full_name };
 
-    this.setState({
-      repositories: [...repositories, data],
-      newRepo: '',
-      loading: false,
-    });
+      this.setState({
+        repositories: [...repositories, data],
+        newRepo: '',
+        loading: false,
+        repositoryNotFound: false,
+      });
+    } catch (err) {
+      console.log('Repository not found:', err);
+      this.setState({
+        loading: false,
+        repositoryNotFound: true,
+      });
+    }
   };
 
   render() {
-    const { newRepo, repositories, loading } = this.state;
+    const { newRepo, repositories, loading, repositoryNotFound } = this.state;
 
     return (
       <Container>
@@ -70,12 +79,15 @@ export default class Main extends Component {
             onChange={this.handleInputChange}
           />
 
-          <SubmitButton loading={loading}>
+          <SubmitButton
+            loading={loading}
+            repositoryNotFound={repositoryNotFound}
+          >
             {loading ? (
               <FaSpinner color="#EEE" size={14} />
             ) : (
-              <FaPlus color="#EEE" size={14} />
-            )}
+                <FaPlus color="#EEE" size={14} />
+              )}
           </SubmitButton>
         </Form>
 

@@ -49,10 +49,13 @@ export const SubmitButton = styled.button.attrs((props) => ({
   disabled: props.loading,
 }))`
   background: #7159c1;
-  border: 0;
   padding: 8px 8px 8px 16px;
   margin-left: 10px;
   border-radius: 4px;
+  border-width: 1.5px;
+  border: ${(props) => (props.repositoryNotFound ? 1 : 0)};
+  border-color: red;
+  border-style: ${(props) => (props.repositoryNotFound ? 'solid' : 'none')};
 
   justify-content: center;
   display: flex;
@@ -84,7 +87,7 @@ export const List = styled.ul`
     align-items: center;
 
     & + li {
-      border-top: 1px solid #DDD;
+      border-top: 1px solid #ddd;
     }
 
     a {
