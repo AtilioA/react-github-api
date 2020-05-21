@@ -52,7 +52,7 @@ export const SubmitButton = styled.button.attrs((props) => ({
   padding: 8px 8px 8px 16px;
   margin-left: 10px;
   border-radius: 4px;
-  border-width: 1.5px;
+  border-width: 2px;
   border: ${(props) => (props.repositoryNotFound ? 1 : 0)};
   border-color: red;
   border-style: ${(props) => (props.repositoryNotFound ? 'solid' : 'none')};

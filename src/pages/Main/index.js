@@ -7,6 +7,8 @@ import { Form, SubmitButton, List } from './styles';
 
 import api from '../../services/api';
 import Container from '../../components/Container/index.js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Main extends Component {
   state = {
@@ -35,11 +37,18 @@ export default class Main extends Component {
   handleInputChange = (event) => {
     this.setState({ newRepo: event.target.value });
   };
+
   handleSubmit = async (event) => {
     try {
       event.preventDefault();
 
       const { newRepo, repositories } = this.state;
+
+      for (let repository of repositories) {
+        if (repository.name.toLowerCase() === newRepo.toLowerCase()) {
+          throw new Error('Error: duplicated repository');
+        }
+      }
 
       this.setState({ loading: true });
 
@@ -54,7 +63,15 @@ export default class Main extends Component {
         repositoryNotFound: false,
       });
     } catch (err) {
-      console.log('Repository not found:', err);
+      toast.error('Duplicated repository or repository not found!', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      console.log('Duplicated repository or repository not found:', err);
       this.setState({
         loading: false,
         repositoryNotFound: true,
@@ -80,7 +97,7 @@ export default class Main extends Component {
           />
 
           <SubmitButton
-            loading={loading}
+            loading={loading ? true : undefined}
             repositoryNotFound={repositoryNotFound}
           >
             {loading ? (
@@ -101,6 +118,7 @@ export default class Main extends Component {
             </li>
           ))}
         </List>
+        <ToastContainer />
       </Container>
     );
   }
