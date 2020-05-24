@@ -5,7 +5,7 @@ import api from '../../services/api';
 
 import { FaSpinner } from 'react-icons/fa';
 import { MdArrowBack } from 'react-icons/md';
-import { Loading, Owner, IssueList } from './styles';
+import { Loading, Owner, IssuesList } from './styles';
 import Container from '../../components/Container/index';
 
 export default class Repository extends Component {
@@ -72,7 +72,7 @@ export default class Repository extends Component {
           <p>{repository.description}</p>
         </Owner>
 
-        <IssueList>
+        <IssuesList>
           {issues.map((issue) => (
             <li key={String(issue.id)}>
               <a href={issue.user.html_url}>
@@ -91,7 +91,7 @@ export default class Repository extends Component {
               </div>
             </li>
           ))}
-        </IssueList>
+        </IssuesList>
       </Container>
     );
   }

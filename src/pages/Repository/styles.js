@@ -60,7 +60,7 @@ export const Owner = styled.div`
   }
 `;
 
-export const IssueList = styled.div`
+export const IssuesList = styled.div`
   padding-top: 30px;
   margin-top: 30px;
   border-top: 1px solid #ddd;

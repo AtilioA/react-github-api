@@ -15,7 +15,7 @@ export default class Main extends Component {
     newRepo: '',
     repositories: [],
     loading: false,
-    repositoryNotFound: false,
+    error: false,
   };
 
   componentDidMount() {
@@ -60,12 +60,12 @@ export default class Main extends Component {
         repositories: [...repositories, data],
         newRepo: '',
         loading: false,
-        repositoryNotFound: false,
+        error: false,
       });
     } catch (err) {
       toast.error('Duplicated repository or repository not found!', {
         position: 'bottom-right',
-        autoClose: 3000,
+        autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -74,13 +74,14 @@ export default class Main extends Component {
       console.log('Duplicated repository or repository not found:', err);
       this.setState({
         loading: false,
-        repositoryNotFound: true,
+        error: true,
       });
+      console.log(this.state.error);
     }
   };
 
   render() {
-    const { newRepo, repositories, loading, repositoryNotFound } = this.state;
+    const { newRepo, repositories, loading, error } = this.state;
 
     return (
       <Container>
@@ -88,7 +89,7 @@ export default class Main extends Component {
           <FaGithubAlt /> Repositories
         </h1>
 
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} error={error}>
           <input
             type="text"
             placeholder="Add repository"
@@ -96,10 +97,7 @@ export default class Main extends Component {
             onChange={this.handleInputChange}
           />
 
-          <SubmitButton
-            loading={loading ? true : undefined}
-            repositoryNotFound={repositoryNotFound}
-          >
+          <SubmitButton loading={loading ? 1 : 0}>
             {loading ? (
               <FaSpinner color="#EEE" size={14} />
             ) : (

@@ -22,16 +22,22 @@ export const Container = styled.div`
 `;
 
 export const Form = styled.form`
-  margin-top: 30px;
+  font-size: 8px;
+  margin-top: 35px;
   display: flex;
   flex-direction: row;
 
   input {
     flex: 1;
-    border: 1px solid #ddd;
     padding: 10px 15px;
-    border-radius: 4px;
     font-size: 16px;
+    border-style: solid;
+    border-radius: 4px;
+    border-width: ${(props) => (props.error ? '2px' : '1px')};
+    border-color: ${(props) => (props.error ? 'red' : '#ddd')};
+    ::placeholder {
+      color: #aaa;
+    }
   }
 `;
 
@@ -53,9 +59,7 @@ export const SubmitButton = styled.button.attrs((props) => ({
   margin-left: 10px;
   border-radius: 4px;
   border-width: 2px;
-  border: ${(props) => (props.repositoryNotFound ? 1 : 0)};
-  border-color: red;
-  border-style: ${(props) => (props.repositoryNotFound ? 'solid' : 'none')};
+  border: 0;
 
   justify-content: center;
   display: flex;
