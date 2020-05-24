@@ -119,3 +119,38 @@ export const IssuesList = styled.div`
     }
   }
 `;
+
+export const Button = styled.div`
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
+  button {
+    background: #7159c1;
+    border: 0;
+    padding: 5px 15px;
+    margin: 5px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+  }
+`;
+
+export const PageController = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-top: 10px;
+  button {
+    background: #7159c1;
+    padding: 2px 0px 0px 5px;
+    margin: 10px;
+    border-radius: 4px;
+    border-width: 2px;
+    border: 0;
+  }
+`;
