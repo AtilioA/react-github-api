@@ -3,7 +3,7 @@
 📚 Small React app to consume GitHub's API.
 
 <h1 align="center">
-    <img alt="react-github-api" title="react-github-api" src=".github/app.gif" width="250px" />
+    <img alt="react-github-api" title="react-github-api" src=".github/app.gif" width="1920px" />
 </h1>
 
 <p align="center">
